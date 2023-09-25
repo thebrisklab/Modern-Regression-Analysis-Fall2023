@@ -211,7 +211,10 @@ fit = glm(ptb~age + male+tobacco, data = dat, family = binomial(link='logit'))
 # Wald statistics:
 summary(fit)
 
+# Don't do this:
 anova(fit)
+# it is sensitive to the order of the variables
+
 library(car)
 # LRTs:
 Anova(fit)
