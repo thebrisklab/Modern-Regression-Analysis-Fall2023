@@ -190,6 +190,15 @@ summary(fit)
 # age no longer significant
 
 
+## Example using Anova to conduct F-tests:
+car::Anova(fit)
+## compare to anova lower-case:
+anova(fit)
+## anova lower-case is a sequential test,
+# and thus sensitive to ordering:
+anova(lm (score ~ age+FactorEdu,data=dat))
+Anova((lm (score ~ age+FactorEdu,data=dat)))
+Anova((lm (score ~ FactorEdu+age,data=dat)))
 
 
 # create plots of age for each education category
@@ -253,6 +262,7 @@ vif(fit)
 # some issues with variance inflation. This generally happens
 # with interaction effects and can make testing them challenging,
 # as it implies reduced statistical power. 
+
 
 
 library(emmeans)
