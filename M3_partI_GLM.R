@@ -247,7 +247,7 @@ plot(log(ptb.age/(1-ptb.age))~c(16:43), xlab="Maternal Age at Delivery", ylab="L
 # A nice explanation is in Simon Sheather, "A Modern Approach to Regression with R"
 #with(fit, cbind(res.deviance = deviance, df = df.residual, p = pchisq(deviance, df.residual, lower.tail=FALSE)))
 
-#simplefit = glm(ptb~1, data = dat, family = binomial(link='logit'))
+simplefit = glm(ptb~1, data = dat, family = binomial(link='logit'))
 #with(simplefit, cbind(res.deviance = deviance, df = df.residual, p = pchisq(deviance, df.residual, lower.tail=FALSE)))
 # residual deviance does not help
 
