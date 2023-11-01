@@ -97,12 +97,15 @@ legend ("topleft", legend=c("Piecewise linear", "Linear splines"), col=c(2,4), l
 # Coefficient interpretation
 summary (fit7)
 
-selectregion2 = c(0,1,1,0)
+# Cov(c'\hat{\beta})=c'vcov(\hat{\beta})c
+selectregion2 = c(0,1,1,0) # selects coefficients \beta_1 and \beta_2
 (slope_region2 = coef(fit7)%*%selectregion2)
 vcovpl = vcov(fit7)
 se_region2 = sqrt(t(selectregion2)%*%vcovpl%*%selectregion2)
 slope_region2-2*se_region2
 slope_region2+2*se_region2
+sqrt(vcovpl[2,2]+vcovpl[3,3]+2*vcovpl[2,3])
+
 
 selectregion3 = c(0,1,1,1)
 (slope_region3 = coef(fit7)%*%selectregion3)
@@ -214,7 +217,7 @@ sum((fit8$fitted-fit11$fitted)^2) # cubic polynomial spline minus cubic b-spline
 
 ####################
 ###Mortality 
-load ("NYC.RData")
+load ("Data/NYC.RData")
 
 plot (health$alldeaths~health$date, xlab = "Date", ylab = "Death")
 
