@@ -3,19 +3,19 @@ load ("Data/GAbirth.RData")
 library(splines)
 str (dat)
 
-# Slide 4
+# Slide
 boxplot(dat$bw~dat$gw, xlab = "Gestational Week", ylab = "Birth weight")
 
-# Slide 5
+# Slide
 fit = lm (bw~gw, data = dat)
 summary(fit)
 plot (dat$bw~dat$gw, xlab = "Gestational Week", ylab = "Birth weight")
 abline(fit, col=2, lwd = 3)
 
-# Slide 6
+# Slide
 par (mfrow = c(2,2)); plot (fit)
 
-# Slide 10
+# Slide 
 # ordering by gw facilitates plotting:
 dat = dat[order (dat$gw),]
 dev.off() # clears the plotting environment
@@ -29,12 +29,12 @@ lines (fit3$fitted~dat$gw, col = 5, lwd = 3)
 legend ("topleft", legend=c("Linear", "Quadratic", "Cubic"), col=c(2,4,5), lwd=3) 
 
 
-# Slide 11
+# Slide 
 plot (dat$bw~dat$gw, xlab = "Gestational Week", ylab = "Birth weight")
 abline (v=c(36.5, 41.5), col = 4, lwd = 3)
 
 
-#Slide 13
+## Slide
 Ind1 = dat$gw >= 37 & dat$gw <= 41
 Ind2 = dat$gw >= 42
 
@@ -65,7 +65,6 @@ lines (fit6$fitted[!Ind1 & !Ind2]~dat$gw[!Ind1 & !Ind2], col = 5, lwd = 3)
 legend ("topleft", legend=c("Linear", "Quadratic", "Cubic"), col=c(2,4,5), lwd=3) 
 
 
-#Slide 14
 #Piecewise splines (continuous)
 Sp1 = (dat$gw - 36.5)*as.numeric(dat$gw >= 36.5 )
 Sp2 = (dat$gw - 41.5)*as.numeric(dat$gw >= 41.5)
@@ -93,7 +92,7 @@ lines (predict (fit7, newdata=newdata)~morepoints, col = 4, lwd = 3)
 abline (v=c(36.5, 41.5), col = "grey", lwd = 3)
 legend ("topleft", legend=c("Piecewise linear", "Linear splines"), col=c(2,4), lwd=3)
 
-#Slide 17
+
 # Coefficient interpretation
 summary (fit7)
 
@@ -114,9 +113,7 @@ slope_region3-2*se_region3
 slope_region3+2*se_region3
 
 
-# Slide 19
-#Fig 8: cubic (polynomial) splines
-# review on 4 november:
+#Fig: cubic (polynomial) splines
 Sp1 = (dat$gw - 36.5)^3*as.numeric(dat$gw >= 36.5 )
 Sp2 = (dat$gw - 41.5)^3*as.numeric(dat$gw >= 41.5)
 fit8 = lm (bw~ gw+I(gw^2) + I(gw^3) + Sp1 + Sp2, data = dat)
@@ -144,7 +141,7 @@ lines(dat$gw,dmat[,6],type='l',col='red')
 ##<-------
 
 
-# code for slide 19:
+#
 newdata1 = data.frame(gw=morepoints, Sp1= (morepoints-36.5), Sp2=(morepoints-41.5) )
 newdata1[ newdata1 <0] = 0
 newdata2 = data.frame(gw=morepoints, Sp1= (morepoints-36.5)^3, Sp2=(morepoints-41.5)^3 )
@@ -157,7 +154,7 @@ lines (predict (fit7, newdata=newdata1)~morepoints, col = 4, lwd = 3)
 lines (predict (fit8, newdata=newdata2)~morepoints, col = 2, lwd = 3)
 legend ("topleft", legend=c("Linear splines", "Cubic splines"), col=c(4,2), lwd=3)
 
-# slide 23
+
 ### Linear bsplines
 fit9 = lm ( bw ~ bs(gw, knots = c(36.5, 41.5), degree = 1),  data = dat)
 
@@ -165,7 +162,6 @@ fit9 = lm ( bw ~ bs(gw, knots = c(36.5, 41.5), degree = 1),  data = dat)
 fit10 = lm ( bw ~ bs(gw, knots = c(36.5, 41.5), degree = 2),  data = dat)
 
 ### Cubic bsplines
-# slide 25
 fit11 = lm ( bw ~ bs(gw, knots = c(36.5, 41.5), degree = 3),  data = dat)
 # don't interpret coefficients
 summary(fit11)
@@ -195,7 +191,7 @@ lines(xmat[,5]~morepoints,type='l',col=5)
 #dev.off()
 cbind(morepoints,apply(xmat,1,sum))
 
-#slide  26
+#
 plot (dat$bw~dat$gw, xlab = "Gestational Week", ylab = "Birth weight", col = "grey")
 abline (v = c(36.5, 41.5), lty = 3, lwd = 2)
 lines(fit9$fitted[Ind1]~dat$gw[Ind1], col=1, lwd=3)
@@ -244,7 +240,7 @@ legend ("topleft", legend=c("Linear splines", "Quadratic splines", "Cubic spline
 
 
  
- # Slide 27:
+##
 fit1 = lm (alldeaths~bs (date, df = 20, degree = 1), data = health)
 fit2 = lm (alldeaths~bs (date, df = 20, degree = 2), data = health)
 fit3 = lm (alldeaths~bs (date, df = 20, degree = 3), data = health)
@@ -256,7 +252,7 @@ lines (fit3$fitted~health$date, col = 5, lwd = 3)
  legend ("topleft", legend=c("Linear splines", "Quadratic splines", "Cubic splines"), col=c(2,4, 5), lwd=3, cex = 1.3, bty= "n")
 
 
-## Slide 32
+
 ### Knots
 fit1 = lm (alldeaths~bs (date, df = 10), data = health)
 fit2 = lm (alldeaths~bs (date, df = 20), data = health)
@@ -272,7 +268,7 @@ lines (fit4$fitted~health$date, col = 6, lwd = 3)
  legend ("topleft", legend=c("10 df", "20 df", "30 df", "50 df"), col=c(2,4, 5, 6), lwd=3, cex = 1.3, bty= "n")
 
 
-## Slide 43
+
 ### AIC, CV, and GCV calculation examples:
 fit = lm (alldeaths~bs (date, df = 10), data = health)
 
@@ -289,7 +285,7 @@ GCV
 
 
 
-## Slide 44
+
 #### Loop for Mortality
 ## Loop across different degrees of freedom
 results = NULL
@@ -324,9 +320,9 @@ lines (fit1$fitted~health$date, col = 2, lwd = 2)
 lines (fit2$fitted~health$date, col = 4, lwd = 3)
 lines (fit3$fitted~health$date, col = 5, lwd = 3)
 
-## Slide 45
+## Additional example
 #### Loop for Birth Weight and Pregnancy length
-## Here, we will look at WHERE to put one know
+## Here, we will look at WHERE to put one knot
 
 resultsLinear = resultsCubic = NULL
 loc = seq(27, 43, by = 1)
@@ -361,7 +357,7 @@ plot (resultsCubic[,2]~resultsCubic[,1], xlab = "Knot Point", ylab = "AIC", main
 plot ((resultsCubic[,3])~resultsCubic[,1], xlab = "Knot Point", ylab = "CV", main = "Cubic CV")
 plot ((resultsCubic[,4])~resultsCubic[,1], xlab = "Knot Point", ylab = "GCV", main = "Cubic GCV")
 
-# Slide 46
+#
 # print out the minima:
 (loc.i.cubic = resultsLinear[which.min(resultsLinear[,2]),1])
 (loc.i.linear = resultsLinear[which.min(resultsCubic[,2]),1])
