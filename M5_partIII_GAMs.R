@@ -153,7 +153,7 @@ fit5 = gam(log(cr65plus)~s(date2, k = 400), data=health)
 gam.check(fit5)
 
 
-# slide 25
+# 
 fit = gam(log(cr65plus)~s(date2, k=80, fx = TRUE), data=health)
 summary(fit)
 par(mfrow=c(1,1))
@@ -327,7 +327,7 @@ for (j in 1:4){
 }
 
 
-# slide 40
+#
 beta = c(-2,1,1,-2)
 z = matrix(0, ncol = length (y), nrow =length(x))
 for (j in 1:4){
@@ -356,7 +356,7 @@ title (main = "Basis coefficients = [1,-1,-1,1]")
 ##########################
 #Tensor Product Spline Demo
 ##########################
-# slide 43
+
 x = seq(0, 100, by = 2)
 y = seq(0, 100, by = 5)
 nrz <- length(x); ncz <- length (y)
@@ -579,7 +579,7 @@ for (cut in c(41, 50, 70, 77)) {
 
 
 ### Extract effect
-# Slide 59
+# 
 X1 = predict(fit, data.frame(pm25.lag1 = 40, rmTemp=70,
                          DpTemp=0, rmDpTemp = 0, fdow = "Sunday", date2=0),type= "lpmatrix")
 X2 = predict(fit, data.frame(pm25.lag1 = 50, rmTemp=70,
